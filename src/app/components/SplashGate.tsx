@@ -15,6 +15,8 @@ export default function SplashGate({ children }: SplashGateProps) {
       <CustomSplashScreen
         onComplete={() => setShowSplash(false)}
         minDisplayDuration={1500}
+        fadeInDuration={0.5}
+        fadeOutDuration={0.6}
       />
     );
   }
