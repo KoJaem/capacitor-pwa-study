@@ -291,16 +291,20 @@ pnpm:
 pnpm add -D @capacitor/assets
 ```
 
-### 7-2. `assets/` 폴더 생성
+### 7-2. 이미지 파일 준비
 
-프로젝트 루트에 `assets/` 폴더를 만듭니다.
+이미지는 **용도에 따라 경로가 다릅니다**. `icon.png`와 스플래시 이미지를 같은 폴더에 넣지 않도록 구분합니다.
+
+#### 네이티브 앱 아이콘 / 스플래시 (`@capacitor/assets`)
+
+`capacitor-assets generate`용 원본은 **프로젝트 루트의 `assets/`** 에 둡니다.
 
 ```txt
 my-app/
   assets/
     icon.png
-    custom-splash.png
-  app/
+    splash.png
+  src/
   public/
   android/
   capacitor.config.ts
@@ -311,17 +315,40 @@ my-app/
 
 ```txt
 assets/icon.png
-assets/custom-splash.png
+assets/splash.png
 ```
 
 권장 크기:
 
 ```txt
-icon.png → 1024 x 1024
-custom-splash.png    → 2732 x 2732
+icon.png   → 1024 x 1024
+splash.png → 2732 x 2732
 ```
 
-처음에는 위 두 파일만 있어도 됩니다.
+> `@capacitor/assets`는 `splash.png` 파일명을 기준으로 동작합니다. `custom-splash.png`는 이 폴더에 두지 않습니다.
+
+#### 웹 커스텀 스플래시 (Next.js + Motion)
+
+React `CustomSplashScreen`에서 보여 줄 이미지는 **`public/assets/`** 에 둡니다.
+
+```txt
+my-app/
+  public/
+    assets/
+      custom-splash.png
+      icons/
+        icon-48.webp
+        icon-72.webp
+        ...
+```
+
+`CustomSplashScreen`에서는 다음처럼 참조합니다.
+
+```tsx
+<Image src="/assets/custom-splash.png" alt="앱 스플래시" width={400} height={400} />
+```
+
+PWA 아이콘은 `public/manifest.webmanifest`에서 `assets/icons/*.webp` 경로로 연결합니다.
 
 ### 7-3. Android 리소스 생성
 
@@ -996,7 +1023,8 @@ Android → Gradle로 APK 생성
 ```txt
 @capacitor/splash-screen 설치
 capacitor.config.ts에 SplashScreen 설정
-assets/custom-splash.png 준비
+assets/icon.png, assets/splash.png 준비 (네이티브)
+public/assets/custom-splash.png 준비 (웹 커스텀 스플래시)
 capacitor-assets generate 실행
 ```
 
