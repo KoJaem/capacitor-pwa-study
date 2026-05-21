@@ -298,8 +298,8 @@ pnpm add -D @capacitor/assets
 ```txt
 my-app/
   assets/
-    icon-only.png
-    splash.png
+    icon.png
+    custom-splash.png
   app/
   public/
   android/
@@ -310,15 +310,15 @@ my-app/
 최소 구성:
 
 ```txt
-assets/icon-only.png
-assets/splash.png
+assets/icon.png
+assets/custom-splash.png
 ```
 
 권장 크기:
 
 ```txt
-icon-only.png → 1024 x 1024
-splash.png    → 2732 x 2732
+icon.png → 1024 x 1024
+custom-splash.png    → 2732 x 2732
 ```
 
 처음에는 위 두 파일만 있어도 됩니다.
@@ -996,7 +996,7 @@ Android → Gradle로 APK 생성
 ```txt
 @capacitor/splash-screen 설치
 capacitor.config.ts에 SplashScreen 설정
-assets/splash.png 준비
+assets/custom-splash.png 준비
 capacitor-assets generate 실행
 ```
 

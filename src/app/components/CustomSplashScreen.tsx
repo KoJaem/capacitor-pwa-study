@@ -19,7 +19,7 @@ const EASE_OUT = [0.4, 0, 0.2, 1] as const;
 
 function createSplashVariants(
   fadeInDuration: number,
-  fadeOutDuration: number,
+  fadeOutDuration: number
 ): {
   background: Variants;
   logo: Variants;
@@ -60,7 +60,7 @@ export default function CustomSplashScreen({
 
   const variants = useMemo(
     () => createSplashVariants(fadeInDuration, fadeOutDuration),
-    [fadeInDuration, fadeOutDuration],
+    [fadeInDuration, fadeOutDuration]
   );
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function CustomSplashScreen({
             exit="exit"
           >
             <Image
-              src="/splash.png"
+              src="/assets/custom-splash.png"
               alt="앱 스플래시"
               width={400}
               height={400}
