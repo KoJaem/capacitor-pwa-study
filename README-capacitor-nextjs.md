@@ -298,7 +298,7 @@ pnpm add -D @capacitor/assets
 ```txt
 my-app/
   assets/
-    icon.png
+    icon-only.png
     splash.png
   app/
   public/
@@ -310,14 +310,14 @@ my-app/
 최소 구성:
 
 ```txt
-assets/icon.png
+assets/icon-only.png
 assets/splash.png
 ```
 
 권장 크기:
 
 ```txt
-icon.png → 1024 x 1024
+icon-only.png → 1024 x 1024
 splash.png    → 2732 x 2732
 ```
 
