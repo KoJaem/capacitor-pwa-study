@@ -32,7 +32,7 @@ Next.js 프로젝트를 Capacitor와 함께 쓰려면 일반적으로 Next.js를
 ```js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: "export",
   images: {
     unoptimized: true,
   },
@@ -119,12 +119,12 @@ pnpm exec cap add android
 `capacitor.config.ts` 예시입니다.
 
 ```ts
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'com.company.myapp',
-  appName: 'MyApp',
-  webDir: 'out',
+  appId: "com.company.myapp",
+  appName: "MyApp",
+  webDir: "out",
 };
 
 export default config;
@@ -168,17 +168,17 @@ pnpm add @capacitor/status-bar
 ### 5-2. `capacitor.config.ts`에 StatusBar 설정 추가
 
 ```ts
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'com.company.myapp',
-  appName: 'MyApp',
-  webDir: 'out',
+  appId: "com.company.myapp",
+  appName: "MyApp",
+  webDir: "out",
   plugins: {
     StatusBar: {
       overlaysWebView: false,
-      style: 'DEFAULT',
-      backgroundColor: '#ffffff',
+      style: "DEFAULT",
+      backgroundColor: "#ffffff",
     },
   },
 };
@@ -233,22 +233,22 @@ pnpm add @capacitor/splash-screen
 최종 예시는 다음과 같습니다.
 
 ```ts
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'com.company.myapp',
-  appName: 'MyApp',
-  webDir: 'out',
+  appId: "com.company.myapp",
+  appName: "MyApp",
+  webDir: "out",
   plugins: {
     StatusBar: {
       overlaysWebView: false,
-      style: 'DEFAULT',
-      backgroundColor: '#ffffff',
+      style: "DEFAULT",
+      backgroundColor: "#ffffff",
     },
     SplashScreen: {
       launchShowDuration: 1500,
       launchAutoHide: true,
-      backgroundColor: '#ffffff',
+      backgroundColor: "#ffffff",
       showSpinner: false,
     },
   },
@@ -298,7 +298,7 @@ pnpm add -D @capacitor/assets
 ```txt
 my-app/
   assets/
-    icon-only.png
+    icon.png
     splash.png
   app/
   public/
@@ -310,14 +310,14 @@ my-app/
 최소 구성:
 
 ```txt
-assets/icon-only.png
+assets/icon.png
 assets/splash.png
 ```
 
 권장 크기:
 
 ```txt
-icon-only.png → 1024 x 1024
+icon.png → 1024 x 1024
 splash.png    → 2732 x 2732
 ```
 
@@ -328,22 +328,10 @@ splash.png    → 2732 x 2732
 npm:
 
 ```bash
-npx capacitor-assets generate --android
-```
-
-pnpm:
-
-```bash
-pnpm exec capacitor-assets generate --android
-```
-
-iOS까지 같이 만들 경우:
-
-```bash
 npx capacitor-assets generate
 ```
 
-또는 pnpm:
+pnpm:
 
 ```bash
 pnpm exec capacitor-assets generate
@@ -404,9 +392,7 @@ ignore-scripts=false
 ```json
 {
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
+    "onlyBuiltDependencies": ["sharp"]
   }
 }
 ```
@@ -1039,3 +1025,13 @@ jenv version
 ```
 
 세 곳 모두 Java 21을 가리키는지 확인합니다.
+
+## 수정반영 + 빌드 한번에 하는 방법
+
+```
+pnpm run build
+pnpm exec cap sync
+cd android
+./gradlew assembleDebug
+cd ..
+```
