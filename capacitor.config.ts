@@ -11,8 +11,8 @@ const config: CapacitorConfig = {
       backgroundColor: "#ffffff", // Android 상태바 배경을 #FFFFFF으로 설정
     },
     SplashScreen: {
-      launchShowDuration: 0, // 앱 시작 시 스플래시를 약 1.5초 표시
-      launchAutoHide: true, // 시간이 지나면 자동으로 숨김
+      launchShowDuration: 0,
+      launchAutoHide: false, // JS에서 SplashScreen.hide()로 숨김
       launchFadeOutDuration: 0,
       backgroundColor: "#ffffff", // 스플래시 배경색
       showSpinner: false, // 로딩 스피너 숨김
