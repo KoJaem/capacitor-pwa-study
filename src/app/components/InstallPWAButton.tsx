@@ -1,5 +1,3 @@
-// src/app/components/InstallPWAButton.tsx
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -24,6 +22,23 @@ function isIos() {
   );
 }
 
+function isAndroid() {
+  if (typeof window === "undefined") return false;
+  return /android/i.test(window.navigator.userAgent);
+}
+
+function isCapacitorNativeApp() {
+  if (typeof window === "undefined") return false;
+
+  const capacitor = (
+    window as Window & {
+      Capacitor?: { isNativePlatform?: () => boolean };
+    }
+  ).Capacitor;
+
+  return capacitor?.isNativePlatform?.() ?? false;
+}
+
 function isInStandaloneMode() {
   if (typeof window === "undefined") return false;
 
@@ -39,6 +54,8 @@ export default function InstallPWAButton() {
     useState<BeforeInstallPromptEvent | null>(null);
 
   const [isIosDevice] = useState(() => isIos());
+  const [isAndroidDevice] = useState(() => isAndroid());
+  const [isNativeApp] = useState(() => isCapacitorNativeApp());
   const [isStandalone] = useState(() => isInStandaloneMode());
 
   useEffect(() => {
@@ -61,33 +78,56 @@ export default function InstallPWAButton() {
     return null;
   }
 
-  if (isIosDevice) {
+  // Capacitor 네이티브 WebView에서는 PWA 설치 이벤트가 거의 발생하지 않음
+  if (isNativeApp) {
     return (
-      <div>
-        iOS에서는 Safari 하단의 공유 버튼을 누른 뒤
-        <strong>홈 화면에 추가</strong>를 선택해 주세요.
-      </div>
+      <p className="px-4 py-2 text-sm text-zinc-600">
+        앱 설치(PWA)는 Android Chrome 브라우저에서 이 사이트를 열 때 사용할 수
+        있습니다.
+      </p>
     );
   }
 
-  if (!promptEvent) {
-    return null;
+  if (isIosDevice) {
+    return (
+      <p className="px-4 py-2 text-sm text-zinc-600">
+        iOS에서는 Safari 하단의 공유 버튼을 누른 뒤{" "}
+        <strong>홈 화면에 추가</strong>를 선택해 주세요.
+      </p>
+    );
   }
 
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        await promptEvent.prompt();
+  if (promptEvent) {
+    return (
+      <button
+        type="button"
+        className="mx-4 my-2 rounded-lg bg-black px-4 py-2 text-sm text-white"
+        onClick={async () => {
+          await promptEvent.prompt();
 
-        const choice = await promptEvent.userChoice;
+          const choice = await promptEvent.userChoice;
 
-        if (choice.outcome === "accepted") {
-          setPromptEvent(null);
-        }
-      }}
-    >
-      앱 설치
-    </button>
-  );
+          if (choice.outcome === "accepted") {
+            setPromptEvent(null);
+          }
+        }}
+      >
+        앱 설치
+      </button>
+    );
+  }
+
+  // Android Chrome: 이벤트가 없어도 메뉴 안내 표시 (버튼이 null이면 아무것도 안 보이는 문제 방지)
+  if (isAndroidDevice) {
+    return (
+      <p className="px-4 py-2 text-sm text-zinc-600">
+        Chrome에서 설치하려면 주소창 옆 <strong>앱 설치</strong> 또는 메뉴(⋮) →{" "}
+        <strong>앱 설치</strong> / <strong>홈 화면에 추가</strong>를
+        사용해 주세요. (로컬 테스트는 <code>pnpm build</code> 후{" "}
+        <code>pnpm start</code> 필요)
+      </p>
+    );
+  }
+
+  return null;
 }

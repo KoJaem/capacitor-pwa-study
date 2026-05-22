@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import InstallPWAButton from "./components/InstallPWAButton";
+import SerwistProviderWrapper from "./components/SerwistProviderWrapper";
 import SplashGate from "./components/SplashGate";
 import "./globals.css";
 
@@ -16,7 +17,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Just Meditation",
-  manifest: "/manifest.ts",
   icons: [
     { rel: "icon", url: "/icon-192.webp" },
     { rel: "apple-touch-icon", url: "/icon-192.webp" },
@@ -34,10 +34,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SplashGate>
+        <SerwistProviderWrapper>
           <InstallPWAButton />
-          {children}
-        </SplashGate>
+          <SplashGate>{children}</SplashGate>
+        </SerwistProviderWrapper>
       </body>
     </html>
   );

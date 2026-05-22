@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# Serwist 빌드 산출물 (webpack 빌드 시 public/에 생성됨)
+/public/sw.js
+
 # production
 /build
 
