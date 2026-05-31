@@ -348,7 +348,7 @@ my-app/
 <Image src="/assets/custom-splash.png" alt="앱 스플래시" width={400} height={400} />
 ```
 
-PWA 아이콘은 `public/manifest.webmanifest`에서 `assets/icons/*.webp` 경로로 연결합니다.
+PWA 아이콘은 `src/app/manifest.ts`에서 `/assets/icons/*.webp` 경로로 연결합니다. (`next build` 시 `/manifest.webmanifest`가 자동 생성됩니다.)
 
 ### 7-3. Android 리소스 생성
 
